@@ -13,7 +13,7 @@ class Blog extends Component {
         error: false
     }
 
-    componentDidMount () {
+    componentDidMount() {
         axiosInstance.get('/posts')
             .then(res => {
                 const posts = res.data.slice(0, 4);
@@ -34,29 +34,37 @@ class Blog extends Component {
             });
     }
 
-    postSelectedHandler = (id) =>{
+    postSelectedHandler = (id) => {
         this.setState({
             selectedPostId: id
         })
     }
 
-    render () {
+    render() {
 
-        let posts = <p style={{textAlign:'center'}}>Something went wrong!</p>
-        if(!this.state.error){
+        let posts = <p style={{ textAlign: 'center' }}>Something went wrong!</p>
+        if (!this.state.error) {
             posts = this.state.posts.map(post => {
-                return <Post 
-                key={post.id} 
-                title={post.title} 
-                author={post.author}
-                clicked={()=> this.postSelectedHandler(post.id)}
+                return <Post
+                    key={post.id}
+                    title={post.title}
+                    author={post.author}
+                    clicked={() => this.postSelectedHandler(post.id)}
                 ></Post>
             })
         }
-       
-        
+
+
         return (
-            <div>
+            <div className="Blog">
+                <header>
+                    <nav>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/new-post">New Post</a></li>
+                        </ul>
+                    </nav>
+                </header>
                 <section className="Posts">
                     {posts}
                 </section>
